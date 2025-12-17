@@ -1,0 +1,272 @@
+@import './toaststyle.css';
+@import './glassbutton.css';
+@import './inputstyle.css';
+@import 'tailwindcss';
+
+@source '../app/Funs/helpers.php';
+@source '../resources/**/*.blade.php';
+@source '../resources/**/*.js';
+@source '../public/**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-primary: #5c656a;
+    --color-secondary: #8a969b; /* slate-500 */
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+@font-face {
+    font-family: BenSen;
+    src: url(/public/fonts/BenSen.ttf);
+    font-display: block;
+}
+
+@font-face {
+    font-family: Themefont;
+    src: url(/public/fonts/Themefont.ttf);
+    font-display: block;
+}
+
+.font-bangla {
+    font-family: BenSen, serif;
+}
+
+.font-theme {
+    font-family: Themefont, serif;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+summary::-webkit-details-marker {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 0;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 0;
+    background-color: #d4d4d4;
+    box-shadow: 0 0 1px #e0e0e000;
+}
+
+.fly {
+    color: white;
+    background-color: #cacaca;
+    padding: 0 1px;
+    font-size: 12px;
+    top: -18px;
+    border-radius: 5px;
+    transition: all 0.5s;
+}
+
+.legend-style-point {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid transparent;
+    border-radius: 100%;
+}
+
+.legend-style-polygon {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #00f;
+    border-radius: 10%;
+}
+
+.legend-style-line {
+    display: inline-block;
+    width: 12px;
+    height: 2px;
+}
+
+.leaflet-control-layers-group-name {
+    font-weight: 700;
+    margin-bottom: .2em;
+    margin-left: 3px
+}
+
+.leaflet-control-layers-group {
+    margin-bottom: .5em
+}
+
+.leaflet-control-layers-scrollbar {
+    overflow-y: scroll;
+    padding-right: 10px
+}
+
+.truncate-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media print {
+    .leaflet-control-zoom,
+    .leaflet-bar.leaflet-control,
+    .leaflet-control-boxzoom,
+    .leaflet-control-layers {
+        display: none;
+    }
+}
+
+
+@layer components {
+    .adt {
+        @apply absolute top-0 left-0 right-0 m-2 flex flex-row items-center justify-start gap-2;
+    }
+
+    .adtl {
+        @apply absolute top-0 left-0 m-2 flex flex-row items-center justify-start gap-2;
+    }
+
+    .adtr {
+        @apply absolute top-0 right-0 m-2 flex flex-row items-center justify-end gap-2;
+    }
+
+    .adb {
+        @apply absolute bottom-0 left-0 right-0 m-2 flex flex-row items-center justify-center gap-2;
+    }
+
+    .adbl {
+        @apply absolute bottom-0 left-0 m-2 flex flex-row items-center justify-start gap-2;
+    }
+
+    .adbr {
+        @apply absolute bottom-0 right-0 m-2 flex flex-row items-center justify-end gap-2;
+    }
+
+    .adl {
+        @apply absolute top-0 bottom-0 left-0 m-2 flex flex-row items-center justify-start gap-2;
+    }
+
+    .adr {
+        @apply absolute top-0 bottom-0 right-0 m-2 flex flex-row items-center justify-start gap-2;
+    }
+
+    .fcol {
+        @apply flex flex-col items-center justify-center;
+    }
+
+    .fcols {
+        @apply flex flex-col items-start justify-center;
+    }
+
+    .fcole {
+        @apply flex flex-col items-end justify-center;
+    }
+
+    .frow {
+        @apply flex flex-row items-center justify-center;
+    }
+
+    .frows {
+        @apply flex flex-row items-center justify-start;
+    }
+
+    .frowe {
+        @apply flex flex-row items-center justify-end;
+    }
+
+    .frowb {
+        @apply flex flex-row items-center justify-between;
+    }
+
+    .fcol2row {
+        @apply flex flex-col md:flex-row items-start md:items-center justify-center md:justify-start;
+    }
+
+    .infrow {
+        @apply inline-flex items-center justify-center bg-amber-300;
+    }
+
+    .title {
+        @apply text-xl md:text-2xl xl:text-3xl font-bold uppercase print:text-base;
+    }
+
+    .text-grad {
+        @apply w-fit bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-yellow-500;
+    }
+
+    .stitle {
+        @apply text-xs md:text-base drop-shadow uppercase font-bold print:text-base;
+    }
+
+    .menubar {
+        @apply w-full gap-2 border-b border-green-600 bg-gray-300 px-2;
+    }
+
+    .menudiv {
+        @apply absolute flex flex-col items-center justify-center min-w-44 gap-2 rounded-2xl;
+    }
+
+    .inputcss {
+        @apply w-full bg-white text-black rounded-xl border border-gray-400 p-2 pl-12 shadow outline-none focus:border-green-500;
+    }
+
+    .inputcssline {
+        @apply w-full border border-gray-400 shadow outline-none;
+    }
+
+    .checkbox {
+        @apply h-6 w-6 cursor-pointer appearance-none rounded-full border border-green-400 p-2 ml-2 checked:border-transparent checked:bg-green-400;
+    }
+
+    .card {
+        @apply block w-sm max-h-52 rounded-2xl relative transition bg-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900;
+    }
+
+    .header {
+        @apply px-4 py-3 border-b border-gray-100 flex justify-between items-center;
+    }
+
+    .sqrbtn {
+        @apply w-24 h-24 md:w-32 md:h-32 flex flex-col items-center justify-center gap-0 rounded-[25px] relative shadow cursor-pointer hover:text-white;
+    }
+
+    .modalback {
+        @apply flex flex-col items-center justify-center gap-2 fixed inset-0 z-50 w-full;
+    }
+
+    .modal {
+        @apply max-w-[320px] relative rounded-xl p-4 border-2 border-gray-500 print:hidden;
+    }
+
+    .container {
+        @apply w-full m-auto sm:px-6 md:px-12 lg:px-20 xl:px-32;
+    }
+
+    .bodycss {
+        @apply min-h-screen relative  bg-gray-200 dark:bg-gray-700 text-black dark:text-white;
+    }
+
+    .alink {
+        @apply flex flex-row items-center justify-start gap-2 cursor-pointer whitespace-nowrap border-b border-transparent hover:border-green-400;
+    }
+
+    .submit-button {
+        @apply px-4 py-2 flex flex-row items-center justify-start gap-2 rounded-xl cursor-pointer;
+    }
+
+    .btncolor {
+        @apply bg-gray-300 dark:bg-gray-600 hover:bg-gray-200 hover:dark:bg-gray-500;
+    }
+
+    .bg-grad {
+        @apply bg-gradient-to-br from-sky-100 via-white to-emerald-50 dark:from-slate-800 dark:via-gray-700 dark:to-zinc-800;
+    }
+}
