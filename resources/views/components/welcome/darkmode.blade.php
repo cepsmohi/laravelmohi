@@ -1,6 +1,6 @@
 <div
     x-data
-    class="px-2 frowe relative print:hidden"
+    class="frowe relative print:hidden"
 >
     <div class="w-full frowe gap-2 my-1">
         <div

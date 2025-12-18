@@ -4,8 +4,8 @@
     :class="hidden ? '-translate-y-full' : 'translate-y-0'"
     class="p-2 w-full text-5xl drop-shadow transform transition-transform duration-1000 ease-in-out"
 >
-    <div class="drop-shadow">
-        <a class="frows gap-4 text-2xl md:text-5xl drop-shadow"
+    <div class="frows">
+        <a class="w-auto frows gap-4  text-2xl md:text-5xl drop-shadow"
            href="{{ $href ?? route('dashboard') }}"
            wire:navigate>
             <img class="w-14 md:w-24"
