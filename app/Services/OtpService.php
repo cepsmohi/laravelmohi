@@ -2,10 +2,13 @@
 
 namespace App\Services;
 
+use App\Mail\OtpMail;
 use App\Models\Otp;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Log;
 use Random\RandomException;
+
 
 class OtpService
 {
@@ -54,17 +57,14 @@ class OtpService
 
     public function sendCode(string $identifier, string $code): void
     {
-        // Decide channel by identifier format
         if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
-            // Email sending placeholder
+            Mail::to($identifier)->send(new OtpMail($code));
             Log::info("OTP Email to $identifier: $code");
-            // TODO: Mail::to($identifier)->send(new OtpMail($code));
             return;
         }
 
-        // SMS sending placeholder
+        // SMS placeholder
         Log::info("OTP SMS to $identifier: $code");
-        // TODO: integrate Twilio / Vonage / local gateway
     }
 
     public function verify(string $identifier, string $code, string $purpose = 'login', int $maxAttempts = 5): bool

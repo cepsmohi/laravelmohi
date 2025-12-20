@@ -1,10 +1,18 @@
 <div
-    x-data
+    x-data="{
+        isDarkMode: localStorage.getItem('theme') === 'dark',
+        toggle() {
+            this.isDarkMode = !this.isDarkMode;
+            localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
+            document.documentElement.classList.toggle('dark', this.isDarkMode);
+        }
+    }"
+    x-init="document.documentElement.classList.toggle('dark', isDarkMode)"
     class="frowe relative print:hidden"
 >
     <div class="w-full frowe gap-2 my-1">
         <div
-            @click="isDarkMode = !isDarkMode"
+            @click="toggle()"
             class="w-8 h-8 buttonhover frow rounded-full cursor-pointer shadow-inner
                    transition-all duration-500 ease-out backdrop-blur-xl"
             :class="isDarkMode ? 'bg-zinc-400/20' : 'bg-yellow-500/20'"

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
+use InvalidArgumentException;
 use Random\RandomException;
 
 class OtpAuthController extends Controller
@@ -27,7 +28,13 @@ class OtpAuthController extends Controller
             'identifier' => ['required', 'string', 'max:191'], // email or phone
         ]);
 
-        $identifier = $this->normalizeIdentifier($data['identifier']);
+        $identifier = strtolower(trim($data['identifier']));
+
+        if (!User::where('email', $identifier)->exists()) {
+            throw ValidationException::withMessages([
+                'identifier' => 'User does not exist.',
+            ]);
+        }
 
         // Rate limit OTP sends per identifier + IP
         $key = 'otp_send:'.sha1($identifier.'|'.$request->ip());
@@ -47,20 +54,7 @@ class OtpAuthController extends Controller
 
         return redirect()
             ->route('otp.verify.form', ['identifier' => $identifier])
-            ->with('status', 'OTP sent successfully.');
-    }
-
-    private function normalizeIdentifier(string $identifier): string
-    {
-        $identifier = trim($identifier);
-
-        // If it's email, lowercase it
-        if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
-            return mb_strtolower($identifier);
-        }
-
-        // If it's phone, keep digits + leading + (basic normalization)
-        return preg_replace('/[^\d+]/', '', $identifier) ?? $identifier;
+            ->with('success', 'OTP sent successfully.');
     }
 
     public function showVerifyForm(Request $request)
@@ -98,7 +92,7 @@ class OtpAuthController extends Controller
         }
 
         // Find or create user
-        $user = $this->findOrCreateUserByIdentifier($identifier);
+        $user = $this->findUserByIdentifier($identifier);
 
         Auth::login($user, remember: true);
         $request->session()->regenerate();
@@ -108,21 +102,24 @@ class OtpAuthController extends Controller
         return redirect()->route('dashboard');
     }
 
-    private function findOrCreateUserByIdentifier(string $identifier): User
+    private function normalizeIdentifier(string $identifier): string
     {
-        if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
-            return User::firstOrCreate(
-                ['email' => $identifier],
-                ['name' => 'User '.substr(sha1($identifier), 0, 6), 'password' => bcrypt(str()->random(32))]
-            );
-        }
+        $identifier = trim($identifier);
 
-        // Phone flow
-        return User::firstOrCreate(
-            ['phone' => $identifier],
-            ['name' => 'User '.substr(sha1($identifier), 0, 6), 'password' => bcrypt(str()->random(32))]
-        );
+        if (!filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
+            throw new InvalidArgumentException('Invalid email address.');
+        }
+        return mb_strtolower($identifier);
     }
+
+    private function findUserByIdentifier(string $identifier): User
+    {
+        if (!filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
+            throw new InvalidArgumentException('Invalid email address.');
+        }
+        return User::where('email', $identifier)->firstOrFail();
+    }
+
 
     public function logout(Request $request)
     {
@@ -130,7 +127,7 @@ class OtpAuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login');
+        return redirect()->route('welcome');
     }
 
     public function register()

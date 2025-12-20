@@ -48,6 +48,18 @@ class User extends Authenticatable
             ->implode('');
     }
 
+    public function hasPermission(string $permission): bool
+    {
+        return $this->roles()
+            ->whereHas('permissions', fn($q) => $q->where('name', $permission)
+            )->exists();
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
     /**
      * Get the attributes that should be cast.
      *

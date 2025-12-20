@@ -12,7 +12,6 @@
                 <div>Sent to: <strong>{{ old('identifier', $identifier) }}</strong></div>
                 <x-forms.otp.expiretime :$identifier/>
             </div>
-
             <x-form.input name="code" icon="code" placeholder="123456" value="{{ old('code') }}"/>
             <x-form.submit-button
                 form="otpVerifyForm"

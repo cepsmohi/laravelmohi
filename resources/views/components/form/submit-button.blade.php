@@ -1,7 +1,7 @@
 <div class="frows gap-2">
     <button
         @class([
-            'submit-button buttonhover glass group',
+            'submit-button buttonhover group',
             $width ?? '',
             $color ?? 'btncolor'
         ])
@@ -15,8 +15,10 @@
             width="w-6"
             padding="p-0"
         />
-        <span class="whitespace-nowrap">
-            {{ $tag }}
-        </span>
+        @isset($tag)
+            <span class="whitespace-nowrap">
+                {{ $tag }}
+            </span>
+        @endisset
     </button>
 </div>

@@ -199,7 +199,7 @@ summary::-webkit-details-marker {
     }
 
     .text-grad {
-        @apply w-fit bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
+        @apply w-fit bg-clip-text text-transparent bg-gradient-to-br from-slate-800 via-gray-700 to-zinc-800 dark:from-sky-50 dark:via-white dark:to-emerald-50;
     }
 
     .stitle {

@@ -127,6 +127,12 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        'otp' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/otp.log'),
+            'level' => 'error',
+            'days' => 14,
+        ],
     ],
 
 ];

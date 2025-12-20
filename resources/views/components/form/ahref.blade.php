@@ -1,7 +1,8 @@
 <a
     href="{{ $href ?? '#' }}"
     @class([
-        'block buttonhover rounded-xl cursor-pointer'
+        'block buttonhover rounded-xl cursor-pointer',
+        $color ?? 'btncolor'
     ])
     title="{{ $title ?? '' }}"
 >
