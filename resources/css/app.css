@@ -199,7 +199,7 @@ summary::-webkit-details-marker {
     }
 
     .text-grad {
-        @apply w-fit bg-clip-text text-transparent bg-gradient-to-br from-slate-800 via-gray-700 to-zinc-800 dark:from-sky-50 dark:via-white dark:to-emerald-50;
+        @apply w-fit bg-clip-text text-transparent bg-linear-to-br from-slate-800 via-gray-700 to-zinc-800 dark:from-sky-50 dark:via-white dark:to-emerald-50;
     }
 
     .stitle {
@@ -227,7 +227,7 @@ summary::-webkit-details-marker {
     }
 
     .card {
-        @apply block w-sm max-h-52 rounded-2xl relative transition bg-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900;
+        @apply block w-sm max-h-52 rounded-2xl relative transition bg-gray-300 hover:bg-gray-100 dark:bg-gray-600 dark:hover:bg-gray-500;
     }
 
     .header {
@@ -267,6 +267,6 @@ summary::-webkit-details-marker {
     }
 
     .bg-grad {
-        @apply bg-gradient-to-br from-sky-100 via-white to-emerald-50 dark:from-slate-800 dark:via-gray-700 dark:to-zinc-800;
+        @apply bg-linear-to-br from-sky-100 via-white to-emerald-50 dark:from-slate-800 dark:via-gray-700 dark:to-zinc-800;
     }
 }

@@ -16,7 +16,7 @@
                     <div class="sa-error-fix"></div>
                 </div>
             </div>
-            <x-ui.h3 :title="session('alert')"/>
+            <x-ui.h3 :title="session('alert')" position="w-full text-center"/>
             <div class="mt-4 w-full frow">
                 <div
                     class="submit-button mx-3 bg-red-600 text-white text-center"

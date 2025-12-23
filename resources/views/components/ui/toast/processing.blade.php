@@ -9,7 +9,7 @@
         <div class="modal glass bg-gray-500/50 p-4 rounded-3xl">
             <div class="frows gap-2">
                 <x-ui.icon icon="info"/>
-                <div>{{ session('processing') }}</div>
+                <div class="w-full text-center">{{ session('processing') }}</div>
             </div>
             <div class="mt-4 h-1 w-full bg-green-300 rounded overflow-hidden">
                 <div

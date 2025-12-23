@@ -15,7 +15,7 @@
                     <div class="sa-success-fix"></div>
                 </div>
             </div>
-            <x-ui.h3 :title="session('success')"/>
+            <x-ui.h3 :title="session('success')" position="w-full text-center"/>
         </div>
     </div>
 @endif
