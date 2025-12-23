@@ -1,4 +1,4 @@
-<th
+<td
     @class([
         'p-2 text-left',
         'rounded-br-xl' => $loop->last
@@ -15,4 +15,4 @@
             <x-ui.icon :$icon/>
         </div>
     @endisset
-</th>
+</td>
