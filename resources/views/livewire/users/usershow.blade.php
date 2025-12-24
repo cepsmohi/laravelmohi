@@ -8,7 +8,7 @@
             <x-ui.title :title="$user->name"/>
             <x-users.isactive :$user/>
         </div>
-        <x-users.show.roles :$user/>
+        <x-users.show.roles :$user :$showRoleForm :$name :$label/>
         <x-users.show.cridentials :$user/>
         <x-users.show.entryinfo :$user/>
         <x-users.show.sessioninfo :$user/>

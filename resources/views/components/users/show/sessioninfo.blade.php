@@ -4,7 +4,7 @@
 >
     <div
         @click="isOpen = !isOpen"
-        class="frows gap-2 cursor-pointer"
+        class="frows gap-2 cursor-pointer group"
     >
         <div
             class="frows gap-2 cursor-pointer"

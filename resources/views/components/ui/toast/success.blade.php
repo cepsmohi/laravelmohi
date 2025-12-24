@@ -4,7 +4,7 @@
         x-init="setTimeout(() => show = false, 2000)"
         x-show="show"
         x-transition
-        class="modalback bg-gray-500"
+        class="modalback bg-gray-500/80"
     >
         <div class="modal glass bg-gray-500/50 p-4 rounded-3xl">
             <div class="sa success">

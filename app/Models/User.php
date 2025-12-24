@@ -24,6 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
+        'status'
     ];
 
     /**
@@ -51,13 +52,33 @@ class User extends Authenticatable
     public function hasPermission(string $permission): bool
     {
         return $this->roles()
-            ->whereHas('permissions', fn($q) => $q->where('name', $permission)
-            )->exists();
+            ->whereHas('permissions', fn($q) => $q->where('name', $permission))
+            ->exists();
     }
 
     public function roles()
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->roles()->where('name', 'admin')->exists();
+    }
+
+    public function isActive(): bool
+    {
+        return $this->status === 'active';
+    }
+
+    public function isInactive(): bool
+    {
+        return $this->status === 'inactive';
+    }
+
+    public function isBlocked(): bool
+    {
+        return $this->status === 'blocked';
     }
 
     /**

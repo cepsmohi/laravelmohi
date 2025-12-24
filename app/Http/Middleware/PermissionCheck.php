@@ -13,10 +13,18 @@ class PermissionCheck
      *
      * @param  Closure(Request): (Response)  $next
      */
-    public function handle($request, Closure $next, string $permission)
+    public function handle($request, Closure $next, ?string $permission = null)
     {
-        if (!auth()->check() || !auth()->user()->hasPermission($permission)) {
-            abort(403, 'Permission denied.');
+        $user = auth()->user();
+        
+        // Blocked or inactive users are always denied
+        if ($user->isBlocked() || $user->isInactive()) {
+            abort(403, 'Your account is inactive or blocked.');
+        }
+
+        // Permission check
+        if ($permission !== null && !$user->hasPermission($permission)) {
+            abort(403, 'You do not have the required permission.');
         }
 
         return $next($request);

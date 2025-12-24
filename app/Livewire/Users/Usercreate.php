@@ -33,7 +33,7 @@ class Usercreate extends Component
         ]);
         $data['password'] = Hash::make($data['phone']);
         User::create($data);
-        session()->flash('success', 'User created successfully.');
+        session()->flash('success', 'User created.');
         return redirect()->route('admin.users');
     }
 

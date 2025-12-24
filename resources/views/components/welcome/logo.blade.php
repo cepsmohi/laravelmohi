@@ -9,7 +9,7 @@
            href="{{ $href ?? route('dashboard') }}"
            wire:navigate>
             <img class="w-14 md:w-24"
-                 src="{{ asset('favicon.svg') }}"
+                 src="{{ asset('images/logo/favicon.svg') }}"
                  alt=""
             />
             <div class="font-theme uppercase text-primary dark:text-secondary">

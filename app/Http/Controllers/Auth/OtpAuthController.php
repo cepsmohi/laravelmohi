@@ -25,25 +25,43 @@ class OtpAuthController extends Controller
     public function requestOtp(Request $request, OtpService $otpService)
     {
         $data = $request->validate([
-            'identifier' => ['required', 'string', 'max:191'], // email or phone
+            'identifier' => ['required', 'string', 'email', 'max:191'],
         ]);
 
         $identifier = strtolower(trim($data['identifier']));
 
-        if (!User::where('email', $identifier)->exists()) {
+        /** @var User|null $user */
+        $user = User::where('email', $identifier)->first();
+
+        if (!$user) {
             throw ValidationException::withMessages([
                 'identifier' => 'User does not exist.',
             ]);
         }
 
-        // Rate limit OTP sends per identifier + IP
-        $key = 'otp_send:'.sha1($identifier.'|'.$request->ip());
-        if (RateLimiter::tooManyAttempts($key, 5)) {
-            $seconds = RateLimiter::availableIn($key);
+        if ($user->isBlocked()) {
             throw ValidationException::withMessages([
-                'identifier' => "Too many requests. Try again in $seconds seconds.",
+                'identifier' => 'Your account is blocked.',
             ]);
         }
+
+        if ($user->isInactive()) {
+            throw ValidationException::withMessages([
+                'identifier' => 'Your account is inactive.',
+            ]);
+        }
+
+        // Rate limit OTP sends per identifier + IP
+        $key = 'otp_send:'.sha1($identifier.'|'.$request->ip());
+
+        if (RateLimiter::tooManyAttempts($key, 5)) {
+            $seconds = RateLimiter::availableIn($key);
+
+            throw ValidationException::withMessages([
+                'identifier' => "Too many requests. Try again in {$seconds} seconds.",
+            ]);
+        }
+
         RateLimiter::hit($key);
 
         $otpService->createOtp(
@@ -54,7 +72,7 @@ class OtpAuthController extends Controller
 
         return redirect()
             ->route('otp.verify.form', ['identifier' => $identifier])
-            ->with('success', 'OTP sent successfully.');
+            ->with('success', 'OTP sent.');
     }
 
     public function showVerifyForm(Request $request)

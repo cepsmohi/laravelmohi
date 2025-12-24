@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $_ENV['APP_NAME'] }} {{ isset($title) ? ' | '.$title : '' }}</title>
-    <link type="image/x-icon" href="{{ asset('favicon.ico') }}" rel="icon"/>
+    <link type="image/x-icon" href="{{ asset('images/logo/favicon.ico') }}" rel="icon"/>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>

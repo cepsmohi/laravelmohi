@@ -27,7 +27,7 @@
                 'bg-gray-200/80 dark:bg-gray-600/80',
             ])
         >
-            <td class="p-2 text-left" colspan="4">Not logged in</td>
+            <td class="p-2 text-left" colspan="5">Not logged in</td>
         </tr>
     @endforelse
 </x-ui.table.body>

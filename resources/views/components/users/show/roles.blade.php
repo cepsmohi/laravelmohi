@@ -1,4 +1,4 @@
-<div class="frows gap-2">
+<div class="frows gap-2 group">
     @php
         use App\Models\Role;
         $roles = Role::all();
@@ -7,6 +7,12 @@
     @foreach($roles as $role)
         <div
             class="px-2 py-1 submit-button btncolor buttonhover"
+            @if($role->isAssignedTo($user))
+                wire:click="removeRole({{ $role->id }}, {{ $user->id }})"
+            @endif
+            @if(!$role->isAssignedTo($user))
+                wire:click="assignRole({{ $role->id }}, {{ $user->id }})"
+            @endif
         >
             <div class="p-1 bg-gray-200 rounded-full">
                 <div
@@ -20,4 +26,5 @@
             <div>{{ $role->label }}</div>
         </div>
     @endforeach
+    <x-roles.create.options :$showRoleForm :$name :$label/>
 </div>

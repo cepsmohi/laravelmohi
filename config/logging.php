@@ -133,6 +133,14 @@ return [
             'level' => 'error',
             'days' => 14,
         ],
+
+        'audit' => [
+            'driver' => 'single',
+            'path' => storage_path(
+                'logs/audit/audit-'.now()->format('Y-m').'.log'
+            ),
+            'level' => 'info',
+        ],
     ],
 
 ];
