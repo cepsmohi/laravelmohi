@@ -3,5 +3,6 @@
         :$wireclick
         icon="times"
         rounded="rounded-full"
+        width="w-5"
     />
 </div>

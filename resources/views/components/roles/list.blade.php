@@ -1,4 +1,4 @@
-<div class="p-2 fcols gap-2">
+<div class="p-2 fcols gap-2 group">
     @foreach($roles as $role)
         <div
             x-data="{ isOpen:false }"
@@ -15,11 +15,13 @@
                 </div>
                 <x-ui.collapse/>
             </div>
-            <x-ui.transtogglediv class="relative">
-                <div class="p-2 frows gap-2 bg-gray-200 rounded-xl">
+            <x-ui.transtogglediv :outside="false" class="relative">
+                <div class="p-2 frows gap-2 bg-gray-200 rounded-xl items-start">
                     <x-roles.users :$role/>
+                    <x-roles.permissions :$role :$showPermissionForm :$name :$label :$group/>
                 </div>
             </x-ui.transtogglediv>
         </div>
     @endforeach
+    <x-roles.create.options :$showRoleForm :$name :$label/>
 </div>

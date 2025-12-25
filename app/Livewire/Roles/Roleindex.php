@@ -3,10 +3,13 @@
 namespace App\Livewire\Roles;
 
 use App\Models\Role;
+use App\Traits\RoleTrait;
 use Livewire\Component;
 
 class Roleindex extends Component
 {
+    use RoleTrait;
+
     public function render()
     {
         $roles = Role::orderBy('id')

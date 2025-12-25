@@ -6,6 +6,6 @@
         <div class="p-2 frows">
             <x-ui.title title="Roles"/>
         </div>
-        <x-roles.list :$roles/>
+        <x-roles.list :$roles :$showRoleForm :$name :$label :$showPermissionForm :$group/>
     </div>
 </div>

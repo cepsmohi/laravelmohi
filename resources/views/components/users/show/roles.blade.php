@@ -26,5 +26,4 @@
             <div>{{ $role->label }}</div>
         </div>
     @endforeach
-    <x-roles.create.options :$showRoleForm :$name :$label/>
 </div>

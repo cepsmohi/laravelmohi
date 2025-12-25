@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\AuditLogger;
@@ -9,8 +10,10 @@ use App\Services\AuditLogger;
 trait RoleTrait
 {
     public $showRoleForm = false;
+    public $showPermissionForm = false;
 
-    public $name, $label;
+    public $name, $label, $group;
+    public $role;
 
     public function addRole()
     {
@@ -20,8 +23,41 @@ trait RoleTrait
         ]);
         Role::create($data);
         return redirect()
-            ->route('admin.users.show', $this->user)
+            ->route('admin.roles')
             ->with('success', 'Role created.');
+    }
+
+    public function openPermissionAddForm(Role $role)
+    {
+        $this->role = $role;
+        $this->showPermissionForm = true;
+    }
+
+    public function addPermission()
+    {
+        $data = $this->validate([
+            'name' => 'required',
+            'label' => 'required',
+            'group' => 'required'
+        ]);
+        $permission = Permission::create($data);
+        $this->role->permissions()->attach($permission->id);
+        $this->logPermissionCreated($permission, $this->role);
+        return redirect()
+            ->route('admin.roles')
+            ->with('success', 'Permission created.');
+    }
+
+    public function logPermissionCreated(Permission $permission, Role $role)
+    {
+        AuditLogger::narrative(
+            sprintf(
+                'Admin %s generated "%s" permission for "%s".',
+                auth()->user()?->email,
+                $permission->label,
+                $role->label
+            )
+        );
     }
 
     public function assignRole(Role $role, User $user)
