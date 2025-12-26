@@ -9,8 +9,7 @@ class Userindex extends Component
 {
     public function render()
     {
-        $users = User::where('id', '>', 1)
-            ->orderBy('id')
+        $users = User::orderBy('id')
             ->get();
         return view('livewire.users.userindex', compact('users'))
             ->layout('components.master');

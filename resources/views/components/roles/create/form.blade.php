@@ -1,5 +1,5 @@
 <x-form.form-modal
-    formCondition="showRoleForm"
+    formCondition="createRoleForm"
     :submitCondition="true"
     submitFun="addRole"
     formId="addRoleForm"

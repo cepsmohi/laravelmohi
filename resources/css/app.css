@@ -259,7 +259,7 @@ summary::-webkit-details-marker {
     }
 
     .submit-button {
-        @apply p-2 flex flex-row items-center justify-start gap-2 rounded-xl cursor-pointer;
+        @apply p-2 pr-3 flex flex-row items-center justify-start gap-1 rounded-xl cursor-pointer;
     }
 
     .btncolor {

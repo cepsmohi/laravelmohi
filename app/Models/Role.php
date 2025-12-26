@@ -9,11 +9,6 @@ class Role extends Model
 {
     protected $fillable = ['name', 'label'];
 
-    public function permissions()
-    {
-        return $this->belongsToMany(Permission::class);
-    }
-
     /**
      * Assign this role to a user.
      *
@@ -33,5 +28,23 @@ class Role extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public function deleteable()
+    {
+        // Prevent deletion if role is assigned to any users
+        if ($this->permissions()->exists()) {
+            return false;
+        }
+        // Prevent deletion if role is assigned to any users
+        if ($this->users()->exists()) {
+            return false;
+        }
+        return true;
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
     }
 }

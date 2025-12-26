@@ -1,5 +1,5 @@
 @teleport('#modaldiv')
-<div class="modalback bg-gray-900/90">
+<div class="modalback bg-gray-900/80">
     <div class="modal bg-gray-300/70 dark:bg-gray-700/80 p-4 rounded-3xl">
         <x-form.closeform wireclick="$toggle('{{ $formCondition }}')"/>
         <form

@@ -6,8 +6,9 @@
     @if (isset($wireconfirm)) wire:confirm="{{ $wireconfirm }}" @endif
     @if (isset($aclick)) @click="{{ $aclick }}" @endif
     @class([
-        'block buttonhover rounded-xl cursor-pointer',
+        'block buttonhover cursor-pointer',
         $color ?? 'btncolor',
+        $width ?? 'w-10',
         $rounded ?? 'rounded-xl'
     ])
     title="{{ $title ?? '' }}"
@@ -19,7 +20,7 @@
         >
             <x-ui.icon
                 icon="{{ $icon ?? 'icon' }}"
-                padding="p-0"
+                :padding="$padding ?? 'p-0'"
                 :width="$width ?? 'w-10'"
             />
         </div>
@@ -29,9 +30,8 @@
         >
             <img
                 @class([
-                    'overflow-hidden drop-shadow-xl',
                     $width ?? 'w-10',
-                    $padding ?? 'p-1',
+                    $padding ?? 'p-0',
                     $rounded ?? 'rounded-xl'
                 ])
                 src="{{ asset('images/icon/loading.gif') }}"

@@ -1,6 +1,6 @@
 <div
     x-data="{ isOpen:false }"
-    class="p-2 fcols gap-1 bg-gray-100 rounded-xl"
+    class="p-2 fcols gap-1 bg-gray-100 dark:bg-gray-500 rounded-xl"
 >
     <div
         @click="isOpen = !isOpen"

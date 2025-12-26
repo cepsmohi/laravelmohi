@@ -1,5 +1,5 @@
 <x-form.form-modal
-    formCondition="showPermissionForm"
+    formCondition="createPermissionForm"
     :submitCondition="true"
     submitFun="addPermission"
     formId="addPermissionForm"

@@ -9,11 +9,13 @@ use App\Services\AuditLogger;
 
 trait RoleTrait
 {
-    public $showRoleForm = false;
-    public $showPermissionForm = false;
+    public $createRoleForm = false;
+    public $createPermissionForm = false;
+    public $deleteRoleForm = false;
+    public $deletePermissionForm = false;
 
     public $name, $label, $group;
-    public $role;
+    public $role, $permission;
 
     public function addRole()
     {
@@ -30,7 +32,7 @@ trait RoleTrait
     public function openPermissionAddForm(Role $role)
     {
         $this->role = $role;
-        $this->showPermissionForm = true;
+        $this->createPermissionForm = true;
     }
 
     public function addPermission()
@@ -89,5 +91,46 @@ trait RoleTrait
         return redirect()
             ->route('admin.users.show', $this->user)
             ->with('success', 'Role Removed.');
+    }
+
+    public function deleteRole(Role $role)
+    {
+        $this->role = $role;
+        $this->deleteRoleForm = true;
+    }
+
+    public function deleteRoleConfirm()
+    {
+        $this->role?->delete();
+        $this->role = null;
+        return $this->deleteRoleForm = false;
+    }
+
+    public function deleteRoleCancel()
+    {
+        $this->role = null;
+        return $this->deleteRoleForm = false;
+    }
+
+    public function deletePermission(Role $role, Permission $permission)
+    {
+        $this->role = $role;
+        $this->permission = $permission;
+        $this->deletePermissionForm = true;
+    }
+
+    public function deletePermissionConfirm()
+    {
+        $this->role->permissions()->detach($this->permission->id);
+        $this->permission?->delete();
+        $this->role = null;
+        $this->permission = null;
+        return $this->deletePermissionForm = false;
+    }
+
+    public function deletePermissionCancel()
+    {
+        $this->permission = null;
+        return $this->deletePermissionForm = false;
     }
 }

@@ -1,6 +1,6 @@
 <div
     x-data="{ isOpen:false }"
-    class="p-2 fcols gap-1 bg-gray-100 rounded-xl"
+    class="p-2 fcols gap-1 bg-gray-100 dark:bg-gray-500 rounded-xl"
 >
     <div
         @click="isOpen = !isOpen"
@@ -24,9 +24,19 @@
                     <div class="w-28 text-left">{{ $permission->label }}</div>
                     <x-ui.vline/>
                     <div>{{ $permission->name }}</div>
+                    <div class="hidden group-hover:flex frows gap-2">
+                        <x-ui.vline/>
+                        <x-form.awire
+                            wireclick="deletePermission({{ $role->id }}, {{ $permission->id }})"
+                            icon="trash"
+                            width="w-5 h-5"
+                            title="Delete Role"
+                            rounded="rounded-[5px]"
+                        />
+                    </div>
                 </div>
             @endforeach
         </div>
-        <x-roles.permissions.create.options :$role :$showPermissionForm :$name :$label :$group/>
+        <x-roles.permissions.create.options :$role/>
     </x-ui.transtogglediv>
 </div>

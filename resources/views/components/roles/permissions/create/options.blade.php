@@ -8,7 +8,4 @@
             <div>New</div>
         </div>
     </div>
-    @if($showPermissionForm)
-        <x-roles.permissions.create.form :$name :$label :$group/>
-    @endif
 @endif
